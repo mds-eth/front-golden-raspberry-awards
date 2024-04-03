@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golden Raspberry Awards</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+
+    <div class="sidebar">
+      <a href="/">Dashboard</a>
+      <a href="/list-movies.html" class="active">List Movies</a>
+    </div>
+
+    <div class="main-content-list-movies">
+      <h1>List Movies</h1>
+      <div class="row row-list-movies">
+        <div class="container-list-movies">
+          <table class="table-list">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>
+                  Year
+                  <input type="number" id="input-year" class="year-input" />
+                </th>
+                <th>Title</th>
+                <th>
+                  Winner
+                  <select id="select-winner" class="winner-select">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                    <option value="">All</option>
+                  </select>
+                </th>
+              </tr>
+            </thead>
+            <tbody class="movies-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="pagination">
+        <ul id="page-numbers"></ul>
+      </div>
+      <div class="total-records">
+        Resultados encontrados: <span id="total-records-value">0</span>
+      </div>
+    </div>
+
+    <script src="script-list-movie.js"></script>
+  </body>
+</html>

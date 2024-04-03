@@ -1,0 +1,181 @@
+body, h1, h2, h3, p, ul, ol, li {
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+h3{
+  font-size: 16px;
+  margin-left: 10px;
+  margin: 10px 0px 10px 10px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #707070;
+    display: flex;
+    height: 100vh;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.sidebar {
+    top: 0;
+    left: 0;
+    height: 100vh; 
+    width: 280px; 
+    background-color: #333; 
+    color: #fff; 
+    padding: 20px; 
+}
+
+.sidebar a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 0;
+}
+
+.sidebar a.active {
+    background-color: #555; 
+}
+
+.main-content, .main-content-list-movies {
+    width: calc(100% - 280px);
+    padding: 20px; 
+}
+
+.main-content-list-movies{
+  margin-bottom: 120px;
+}
+
+.row {
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 20px;
+}
+
+.container {
+    flex: 0 0 calc(50% - 10px);
+    min-height: 300px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #FFF;
+    padding: 10px 0px 0px 0px;
+}
+
+
+.container-list-movies{
+  width: 100%;
+  min-height: 250px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  max-height: calc(100vh - 50px); 
+  overflow-y: auto; 
+}
+
+.row-list-movies{
+  height: 100%;
+}
+
+
+.table-list {
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+.table-list th,
+.table-list td {
+  border: 1px solid #ddd; 
+  padding: 8px; 
+}
+
+.table-list th {
+  background-color: #f2f2f2; 
+}
+
+.table-list tbody tr:nth-child(even) {
+  background-color: #f9f9f9; 
+}
+
+.table-list tbody tr:nth-child(odd) {
+  background-color: #e6e6e6; 
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.pagination li {
+  display: inline-block;
+  margin-right: 5px;
+  cursor: pointer;
+  padding: 5px;
+  background-color: #555;
+  color: #FFF
+}
+
+.pagination li:hover {
+  text-decoration: underline;
+}
+
+.total-records {
+  text-align: center;
+  margin-top: 10px; 
+}
+
+#total-records-value {
+  font-weight: bold;
+}
+
+@media(max-width: 600px){
+  body{
+    flex-direction: column;
+  }
+  .sidebar{
+    width: 100%;
+  }
+  .main-content{
+    width: 100%;
+  }
+  .row{
+    flex-direction: column;
+  }
+  .container{
+    width: 90%;
+    margin: 10px 0px;
+  }
+  .main-content-list-movies{
+    width: 90%;
+  }
+}
+
+.active-link{
+  background-color: #FFF;
+}
+
+.input-year{
+  width: 90%;
+  height: 25px;
+  border-radius: 5px;
+  border: 1px solid #555;
+  margin: 10px 5px 10px 5px;
+}
