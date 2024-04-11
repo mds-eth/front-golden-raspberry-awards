@@ -1,11 +1,13 @@
+import { fetchMinMaxInterval, fetchStudiosWithWinCount, fetchYearsWithMultipleWinners, fetchAwardsByYear } from "../http";
+
 async function getDataDashboard() {
 
   try {
 
     const [yearsWithMultipleWinners, studiosWithWinCount, minMaxInterval] = await Promise.all([
-      fetch('http://localhost:3030/api/v1/awards-projection?projection=years-with-multiple-winners'),
-      fetch('http://localhost:3030/api/v1/awards-projection?projection=studios-with-win-count'),
-      fetch('http://localhost:3030/api/v1/awards-projection?projection=max-min-win-interval-for-producers')
+      fetchYearsWithMultipleWinners(),
+      fetchStudiosWithWinCount(),
+      fetchMinMaxInterval()
     ]);
 
     await createTableMultiplesWinners(await yearsWithMultipleWinners.json());
@@ -16,13 +18,15 @@ async function getDataDashboard() {
   }
 }
 
-async function createTableMultiplesWinners(winners) {
+async function createTableMultiplesWinners(response) {
+
+  const { years } = response;
+
   const tableBody = document.querySelector('.year-win-table-body');
 
   tableBody.innerHTML = '';
 
-  winners.forEach((winner, index) => {
-
+  years.forEach(winner => {
     const row = document.createElement('tr');
     row.innerHTML = `
         <td>${winner.year}</td>
@@ -32,24 +36,26 @@ async function createTableMultiplesWinners(winners) {
   });
 }
 
-async function createTableTopStudios(topStudios) {
+async function createTableTopStudios(response) {
+
+  const { studios } = response;
+
   const tableBody = document.querySelector('.studio-win-table-body');
 
   tableBody.innerHTML = '';
 
-  topStudios.forEach(winner => {
-
+  studios.slice(0, 3).forEach(winner => {
     const row = document.createElement('tr');
     row.innerHTML = `
-        <td>${winner.studio}</td>
+        <td>${winner.name}</td>
         <td>${winner.winCount}</td>
         `;
     tableBody.appendChild(row);
   });
 }
 
-async function createTableMinMaxInterval(minMaxInterval) {
-  const { min, max } = minMaxInterval;
+async function createTableMinMaxInterval(response) {
+  const { min, max } = response;
 
   Promise.all([
     await createTableBody(max, document.querySelector('.maximum-interval-table-body')),
@@ -104,7 +110,7 @@ function eventListenerInput() {
 async function fetchData(year) {
 
   try {
-    const response = await fetch(`http://localhost:3030/api/v1/awards-by-year?year=${year}`);
+    const response = await fetchAwardsByYear(year);
 
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -118,7 +124,7 @@ async function fetchData(year) {
     movies.forEach(winner => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${winner._id}</td>
+        <td>${winner.id}</td>
         <td>${winner.year}</td>
         <td>${winner.title}</td>
         `;

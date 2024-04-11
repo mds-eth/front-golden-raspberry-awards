@@ -1,3 +1,5 @@
+import { fetchListMovies } from "../http";
+
 let currentWinner = undefined;
 let currentYear = undefined;
 
@@ -20,7 +22,7 @@ async function listAllFilms(page = 1) {
       params.append('year', currentYear);
     }
 
-    const response = await fetch(`http://localhost:3030/api/v1/awards-list?${params.toString()}`);
+    const response = await fetchListMovies(params.toString());
 
     const data = await response.json();
 
@@ -36,7 +38,7 @@ async function listAllFilms(page = 1) {
 
       currentPage = 1;
 
-      totalPages = Math.ceil(1 / 10);
+      totalPages = data.totalPages;
 
       updatePagination();
       updateTextTotalRecords(data.content.length === 0 ? 0 : totalElements);
@@ -46,7 +48,7 @@ async function listAllFilms(page = 1) {
     data.content.forEach(film => {
       const row = document.createElement('tr');
       row.innerHTML = `
-          <td>${film._id}</td>
+          <td>${film.id}</td>
           <td>${film.year}</td>
           <td>${film.title}</td>
           <td>${film.winner ? 'Yes' : 'No'}</td>
@@ -78,16 +80,13 @@ function updatePagination() {
     const pageNumberItem = document.createElement('li');
     pageNumberItem.textContent = i;
     pageNumberItem.addEventListener('click', () => {
-      // Remova a classe 'active' de todos os itens de paginação
       const allPageNumberItems = document.querySelectorAll('#page-numbers li');
       allPageNumberItems.forEach(item => {
         item.classList.remove('active-click');
       });
 
-      // Adicione a classe 'active-click' ao item clicado
       pageNumberItem.classList.add('active-click');
 
-      // Chame a função listAllFilms com o número da página como argumento
       listAllFilms(i);
     });
     pageNumbersList.appendChild(pageNumberItem);
