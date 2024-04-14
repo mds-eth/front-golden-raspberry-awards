@@ -33,6 +33,8 @@ npm run build
 
 npm run dev
 
-http://127.0.0.1:8080
+acessar no navegador em: 
+
+http://127.0.0.1:8080/index.html
 
 ```
